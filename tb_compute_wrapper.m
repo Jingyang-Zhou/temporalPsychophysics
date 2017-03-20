@@ -64,4 +64,6 @@ for k = 1 : 2
    imagesc(stimsz{k}.ctrdec)
    
    subplot(2, 2, idx(k) + 1)
-   imagesc(stimsz{
+   imagesc(stimsz{k}.cohdec)
+end
+
