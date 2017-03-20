@@ -1,8 +1,8 @@
-function rootPath = tBevRootPath()
+function rootPath = tb_rootPath()
 
 % function rootPath = temporalRootPath()
 
-rootPath = which('tBevRootPath');
+rootPath = which('tb_rootPath');
 rootPath = fileparts(fileparts(rootPath));
 
 end

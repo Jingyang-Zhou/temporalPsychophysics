@@ -2,7 +2,7 @@
 
 %% small spatial stimulus
 
-nRepeats = 10;
+nRepeats = 100;
 
 durs      = [2, 4, 8, 16, 32, 64];
 levels    = [0.01, 0.02, 0.05, 0.1, 0.2, 0.4, 0.8, 1];
@@ -10,50 +10,56 @@ sz1       = [40, 40];
 accumWind = 'exponential';
 rdRule    = 'maxRsp';
 
-for k = 1 : nRepeats
+parfor k = 1 : nRepeats
     [ctr1{k}, coh1{k}] = tb_compute(durs, levels, sz1, accumWind, rdRule);
 end
 
 %% big spatial stimulus
 
-sz2 = [100, 100];
+sz2 = [100, 50];
 
-for k = 1 : nRepeats
+parfor k = 1 : nRepeats
     [ctr2{k}, coh2{k}] = tb_compute(durs, levels, sz2, accumWind, rdRule);
 end
 
+%%  get output
+
+saveLoc = fullfile(tb_rootPath, 'output');
+
+save(fullfile(saveLoc, 'sz2'), 'ctr1', 'ctr2', 'coh1', 'coh2')
+
 %% analyze response
 
-sz1.ctr = zeros(length(levels), length(durs));
-sz1.coh = zeros(size(sz1.ctr));
-
-sz2.ctr = sz1.ctr;
-sz2.coh = sz1.coh;
-
-for k = 1 : nRepeats
-   sz1.ctr  = sz1.ctr + ctr1{k}.mtdecVal;
-   sz1.coh  = sz1.coh + coh1{k}.mtdecVal;
-   
-   sz2.ctr = sz2.ctr +ctr2{k}.mtdecVal;
-   sz2.coh = sz2.coh +coh2{k}.mtdecVal;
-end
-
-sz1.ctr = sz1.ctr./nRepeats;
-sz1.coh = sz1.coh./nRepeats;
-
-sz2.ctr = sz2.ctr./nRepeats;
-sz2.coh = sz2.coh./nRepeats;
-
-figure (1), clf
-
-subplot(2, 2, 1)
-imagesc(sz1.ctr), caxis([0, 1])
-subplot(2, 2, 2)
-imagesc(sz1.coh), caxis([0, 1])
-
-subplot(2, 2, 3)
-imagesc(sz2.ctr), caxis([0, 1])
-subplot(2, 2, 4)
-imagesc(sz2.coh), caxis([0, 1])
+% sza.ctr = zeros(length(levels), length(durs));
+% sza.coh = zeros(size(sza.ctr));
+% 
+% szb.ctr = sza.ctr;
+% szb.coh = sza.coh;
+% 
+% for k = 1 : nRepeats
+%    sza.ctr  = sza.ctr + ctr1{k}.mtdecVal;
+%    sza.coh  = sza.coh + coh1{k}.mtdecVal;
+%    
+%    szb.ctr = szb.ctr +ctr2{k}.mtdecVal;
+%    szb.coh = szb.coh +coh2{k}.mtdecVal;
+% end
+% 
+% sza.ctr = sza.ctr./nRepeats;
+% sza.coh = sza.coh./nRepeats;
+% 
+% szb.ctr = szb.ctr./nRepeats;
+% szb.coh = szb.coh./nRepeats;
+% 
+% figure (1), clf
+% 
+% subplot(2, 2, 1)
+% imagesc(sza.ctr), caxis([0, 1])
+% subplot(2, 2, 2)
+% imagesc(sza.coh), caxis([0, 1])
+% 
+% subplot(2, 2, 3)
+% imagesc(szb.ctr), caxis([0, 1])
+% subplot(2, 2, 4)
+% imagesc(szb.coh), caxis([0, 1])
 
 
