@@ -28,9 +28,9 @@ switch whichrule
         
         for k = 1 : L
             if (ind_ro.ang(k) > pi/2) & (ind_ro.ang(k) <= 1.5*pi),
-                idx(k) = 0;
-            else
                 idx(k) = 1;
+            else
+                idx(k) = 0;
             end
         end
         % amplitude could be used to compute confidence
@@ -40,9 +40,9 @@ switch whichrule
         
         for k = 1 : length(ind_ro.dir)
             if (ind_ro.dir(k) > pi/2) & (ind_ro.dir(k) <= 1.5*pi),
-                idx(k) = 0;
-            else
                 idx(k) = 1;
+            else
+                idx(k) = 0;
             end
         end
         
@@ -53,10 +53,10 @@ end
 
 
 if idx(end) == 1,
-    ind_ro.dec = 'r';
+    ind_ro.dec = 'l';
     ind_ro.decVal = 1;
 else
-    ind_ro.dec = 'l';
+    ind_ro.dec = 'r';
     ind_ro.decVal = 0;
 end
 
