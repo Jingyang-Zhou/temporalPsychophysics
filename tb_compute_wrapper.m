@@ -2,6 +2,8 @@
 
 %% small spatial stimulus
 
+addpath(genpath(fullfile(tb_rootPath, 'code')))
+
 nRepeats = 100;
 
 durs      = [2, 4, 8, 16, 32, 64];
@@ -30,11 +32,17 @@ save(fullfile(saveLoc, 'sz2'), 'ctr1', 'ctr2', 'coh1', 'coh2')
 
 %% analyze response
 
-% sza.ctr = zeros(length(levels), length(durs));
-% sza.coh = zeros(size(sza.ctr));
-% 
-% szb.ctr = sza.ctr;
-% szb.coh = sza.coh;
+stimsz = {};
+
+for k = 1 : 2
+    stimsz{k}.ctr = zeros(length(levels), length(durs));
+    stimsz{k}.coh = zeros(length(levels), length(durs));
+end
+
+for k = 1 : nRepeats
+    stimsz{1}.ctr = stimsz{1}.ctr + ctr1{k};
+end
+
 % 
 % for k = 1 : nRepeats
 %    sza.ctr  = sza.ctr + ctr1{k}.mtdecVal;
