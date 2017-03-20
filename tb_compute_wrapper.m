@@ -32,7 +32,10 @@ end
 
 saveLoc = fullfile(tb_rootPath, 'output');
 
-save(fullfile(saveLoc, 'sz2'), 'ctr1', 'ctr2', 'coh1', 'coh2')
+save(fullfile(saveLoc, 'ctr1'), 'ctr1', '-v7.3')
+save(fullfile(saveLoc, 'ctr2'),  'ctr2',  '-v7.3')
+save(fullfile(saveLoc, 'coh1'), 'coh1',  '-v7.3')
+save(fullfile(saveLoc, 'coh2'), 'coh2', '-v7.3')
 
 %% analyze response
 
@@ -60,10 +63,4 @@ save(fullfile(saveLoc, 'sz2'), 'ctr1', 'ctr2', 'coh1', 'coh2')
 % idx = [1, 3];
 % figure
 % for k = 1 : 2
-%    subplot(2, 2, idx(k))
-%    imagesc(stimsz{k}.ctrdec)
-%    
-%    subplot(2, 2, idx(k) + 1)
-%    imagesc(stimsz{k}.cohdec)
-% end
-
+%    s
