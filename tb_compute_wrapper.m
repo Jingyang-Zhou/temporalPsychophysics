@@ -2,7 +2,11 @@
 
 %% small spatial stimulus
 
+% for hpc
 addpath(genpath(fullfile(tb_rootPath)))
+shCompileMex
+
+%%
 
 nRepeats = 10;
 
@@ -60,6 +64,4 @@ for k = 1 : 2
    imagesc(stimsz{k}.ctrdec)
    
    subplot(2, 2, idx(k) + 1)
-   imagesc(stimsz{k}.cohdec)
-end
-
+   imagesc(stimsz{
