@@ -3,8 +3,8 @@
 %% small spatial stimulus
 
 % for hpc
-% addpath(genpath(fullfile(tb_rootPath)))
-% shCompileMex
+addpath(genpath(fullfile(tb_rootPath)))
+shCompileMex
 
 %%
 
