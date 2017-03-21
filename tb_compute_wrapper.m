@@ -4,11 +4,11 @@
 
 % for hpc
 addpath(genpath(fullfile(tb_rootPath)))
-%shCompileMex
+shCompileMex
 
 %%
 
-nRepeats = 1;
+nRepeats = 100;
 
 durs      = [2, 4, 8, 16, 32, 64];
 %levels    = [0.01, 0.02, 0.05, 0.1, 0.2, 0.4, 0.8, 1];
@@ -23,7 +23,7 @@ end
 
 %% big spatial stimulus
 
-sz2 = [40, 40];
+sz2 = [100, 100];
 
 parfor k = 1 : nRepeats
     [ctr2{k}, coh2{k}] = tb_compute(durs, levels, sz2, accumWind, rdRule);
