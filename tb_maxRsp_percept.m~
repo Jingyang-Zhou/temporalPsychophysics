@@ -25,11 +25,8 @@ end
 for t = 1 : size(rsp, 2)
     idx = find(rsp(:, t) == max(rsp(:, t)));
     if length(idx) > 1
-        randomidx = randi(length(idx), 1);
-        ro.dir(t) = dir(idx(randomidx));
-    else
-        ro.dir(t) =  dir(idx);
-    end
+        
+    ro.dir(t) =  mean(dir(idx));
 end
 
 end

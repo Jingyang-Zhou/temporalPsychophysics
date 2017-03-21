@@ -72,6 +72,9 @@ save(fullfile(saveLoc, 'stimsz'), 'stimsz')
 % figure
 % for k = 1 : 2
 %    subplot(2, 2, idx(k))
-%    imagesc(stimsz{k}.ctrdec)
+%    imagesc(stimsz{k}.ctrdec), caxis([0, 1])
 %    
-%    subplot(2, 2,
+%    subplot(2, 2, idx(k) + 1)
+%    imagesc(stimsz{k}.cohdec), caxis([0, 1])
+% end
+

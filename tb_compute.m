@@ -91,7 +91,7 @@ end
 
 %% visualize accumulation
 
-toplot = coh.mtacc;
+toplot = ctr.mtacc;
 
 if figureOn
     figure (1), clf
