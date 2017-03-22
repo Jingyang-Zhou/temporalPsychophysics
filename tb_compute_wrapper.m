@@ -14,8 +14,8 @@ nRepeats = 50;
 durs      = [2, 4, 8, 16, 32, 64];
 levels    =  logspace(log10(.01), log10(1), 20); 
 
-accumWind = 'exponential';
-rdRule    = 'maxRsp';
+% accumWind = 'exponential';
+% rdRule    = 'maxRsp';
 
 %% compute
 

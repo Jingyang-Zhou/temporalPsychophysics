@@ -5,7 +5,7 @@ function result = logLikelihood(pred, nCorrect, nTotal, logOrNot)
 
 %% Example
 
-exampleOn = 1;
+exampleOn = 0;
 
 if exampleOn
     pred = 0.1 : 0.05 : 0.99;

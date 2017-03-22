@@ -30,20 +30,38 @@ for isz = 1 : nSz
         dec.ctr{isz} = dec.ctr{isz} + dVal{isz}.mtctr{k};
         dec.coh{isz} = dec.coh{isz} + dVal{isz}.mtcoh{k};
     end
+    
+    dec.ctrNCorrect{isz} = dec.ctr{isz};
+    dec.cohNCorrect{isz} = dec.coh{isz};
+    
     dec.ctr{isz} = dec.ctr{isz}./nRp;
     dec.coh{isz} = dec.coh{isz}./nRp;
 end
 
 %% fit Weibull to each sz x duration condition
+fit = [];
 
-psychometric = {};
+fit.ctrpred = {}; fit.cohpred = {};
+fit.ctrvar  = {}; fit.cohvar  = {};
+fit.ctrr2   = []; fit.cohr2   = [];
+
+fit.init = [0.5, 0.1];
 
 for isz = 1 : nSz
     for iDur = 1: nDurs
+        % fit contrast
+        fit.ctrvar{isz}(iDur, :) = fminsearch(@(x) tb_fitWeibull(x, levels,...
+            dec.ctrNCorrect{isz}(:, iDur), nRp), fit.init);
+        fit.ctrpred{isz}(iDur, :) = tb_Weibull(fit.ctrvar{isz}(iDur, :), levels);
+        fit.ctrr2(isz, iDur) = corr(fit.ctrpred{isz}(iDur, :)', dec.ctr{isz}(:, iDur)).^2;
         
+        % fit coherence
+        fit.cohvar{isz}(iDur, :) = fminsearch(@(x) tb_fitWeibull(x, levels,...
+            dec.cohNCorrect{isz}(:, iDur), nRp), fit.init);
+        fit.cohpred{isz}(iDur, :) = tb_Weibull(fit.cohvar{isz}(iDur, :), levels);
+        fit.cohr2(isz, iDur) = corr(fit.cohpred{isz}(iDur, :)', dec.coh{isz}(:, iDur)).^2;
     end
 end
-
 
 %% visualize - plot correctness at each condition
 
@@ -72,3 +90,15 @@ end
 %     subplot(1, 2, 2)
 %     semilogx(levels, dec.coh{iSz}(:, k), 'o-', 'color', cols(k,  :)), hold on, box off
 % end
+%% plot psychometric functions
+figure (3), clf
+
+for k = 1 : nSz
+   subplot(2, nSz, k)
+   semilogx(fit.ctrpred{k}(2 : end, :)'), axis tight
+ 
+   
+   subplot(2, nSz, k + nSz)
+   semilogx(fit.cohpred{k}(2 : end, :)'), axis tight
+  
+end

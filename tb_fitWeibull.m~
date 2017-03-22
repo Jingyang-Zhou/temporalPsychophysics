@@ -1,0 +1,22 @@
+function s = tb_fitWeibull(vars, levels, nCorrect, nTotal)
+% There are two parameters to be fitted slope and threshold
+
+figureOn = 1;
+
+%% compute Weibull
+
+target = tb_Weibull(vars, levels);
+target = target.*.99 + 0.005;
+
+%% compute log likelihood between data and Weibull fit
+
+
+s = -tb_logLikelihood(target, nCorrect, nTotal, 'log');
+
+%% visualize
+
+if figureOn
+    plot(levels, target), hold on
+    plot(levels, nCorrect./nTo)
+
+end
