@@ -35,8 +35,8 @@ for isz = 1 : length(sz)
     dVal{isz}.mtctr = a;
     dVal{isz}.mtcoh = b;
     
-    dVal{isz}.v1ctr = c;
-    dVal{isz}.v1coh = d;
+%    dVal{isz}.v1ctr = c;
+%    dVal{isz}.v1coh = d;
 end
 
 %% small stimulus

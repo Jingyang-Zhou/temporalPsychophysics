@@ -24,6 +24,7 @@ if ~exist('noiselevel', 'var'), noiselevel = 0; end
 
 v1thresh = 0.01;
 figureOn = 0;
+hpcOn    = 1;
 
 %% derived parameters
 
@@ -52,6 +53,7 @@ areas = {'v1', 'mt'};
 [ctr.v1rsp, ctr.mtrsp] = tb_mkRsp(ctr.stim, pars, durs, levels, v1thresh);
 [coh.v1rsp, coh.mtrsp] = tb_mkRsp(coh.stim, pars, durs, levels, v1thresh);
 
+if hpcOn, ctr.stim = []; coh.stim = [];  end
 %% accumulation
 
 condRsp   = {'v1rsp', 'mtrsp'};
@@ -62,6 +64,7 @@ for k = 1 : length(condAccum)
    coh.(condAccum{k}) = tb_accumWind(whichAccumWind, coh.(condRsp{k}), durs, levels);
 end
 
+if hpcOn, ctr.v1rsp = []; coh.v1rsp = []; ctr.mtrsp = []; coh.mtrsp = []; end
 %% compute percept
 
 condPrct = {'v1prct', 'mtprct'};
@@ -71,6 +74,7 @@ for k = 1 : length(condPrct)
     coh.(condPrct{k}) =  tb_read_percept(coh.(condAccum{k}),  whichRdRule, pars, areas{k});
 end
 
+if hpcOn, ctr.v1acc = []; coh.v1acc = []; ctr.mtacc = []; coh.mtacc = []; end
 %% decision
 
 condDec = {'v1dec', 'mtdec'};
@@ -80,6 +84,7 @@ for k = 1 : length(condDec)
    coh.(condDec{k}) = tb_read_dec_wrapper(coh.(condPrct{k}), whichRdRule, pars);
 end
 
+if hpcOn, ctr.v1prct = []; coh.v1prct = []; ctr.mtprct = []; coh.mtprct = []; end
 %% organize decision values
 
 condDecVal = {'v1decVal', 'mtdecVal'};
@@ -89,6 +94,7 @@ for k = 1 : length(condDecVal)
    coh.(condDecVal{k}) = tb_takeDecVal(coh.(condDec{k}), durs, levels);
 end
 
+if hpcOn, ctr.v1dec = []; coh.v1dec = []; ctr.mtdec = []; coh.mtdec = []; end
 %% visualize accumulation
 
 toplot = ctr.mtacc;

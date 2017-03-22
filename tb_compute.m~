@@ -1,4 +1,4 @@
-function [dec] = tb_compute(durs, levels, sz, whichAccumWind, whichRdRule, noiselevel)
+function [ctr.mtdecVal, coh.] = tb_compute(durs, levels, sz, whichAccumWind, whichRdRule, noiselevel)
 % 
 % INPUTS:
 %       durs  : a vector of stimulus durations
@@ -13,17 +13,17 @@ function [dec] = tb_compute(durs, levels, sz, whichAccumWind, whichRdRule, noise
 %
 % OUTPUS:
 %% EXAMPLE
-if ~exist('durs', 'var'),   durs   = [3, 6, 10, 50]; end
+if ~exist('durs', 'var'),   durs   = [3, 6, 10, 70]; end
 if ~exist('levels', 'var'), levels = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5]; end
-if ~exist('sz', 'var'),     sz     = [40, 40]; end
-if ~exist('whichAccumWind', 'var'), whichAccumWind = 'infinite'; end
+if ~exist('sz', 'var'),     sz     = [50, 50]; end
+if ~exist('whichAccumWind', 'var'), whichAccumWind = 'exponential'; end
 if ~exist('whichRdRule', 'var'), whichRdRule = 'maxRsp'; end
 if ~exist('noiselevel', 'var'), noiselevel = 0; end
 
 %% default parameters
 
-v1thresh = 0;
-figureOn = 1;
+v1thresh = 0.01;
+figureOn = 0;
 
 %% derived parameters
 
@@ -80,9 +80,18 @@ for k = 1 : length(condDec)
    coh.(condDec{k}) = tb_read_dec_wrapper(coh.(condPrct{k}), whichRdRule, pars);
 end
 
+%% organize decision values
+
+condDecVal = {'v1decVal', 'mtdecVal'};
+
+for k = 1 : length(condDecVal)
+   ctr.(condDecVal{k}) = tb_takeDecVal(ctr.(condDec{k}), durs, levels);
+   coh.(condDecVal{k}) = tb_takeDecVal(coh.(condDec{k}), durs, levels);
+end
+
 %% visualize accumulation
 
-toplot = coh.mtacc;
+toplot = ctr.mtacc;
 
 if figureOn
     figure (1), clf
@@ -124,6 +133,11 @@ end
 
 if figureOn
    fg = figure;
-   toplot = {ctr.mtdec, coh.mtdec};
-   for k1 = 1 : nl
+   toplot = coh.mtdec; % coh.mtdec
+   for k1 = 1 : nlevels
+       for k2 = 1 : ndurs
+           dec(k1, k2) = toplot{k1, k2}.decVal;
+       end
+   end
+   imagesc(dec)
 end
