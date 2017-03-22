@@ -1,4 +1,5 @@
 % tb_compute_wrapper
+function [] = tb_compute_wrapper(sz)
 
 %% small spatial stimulus
 
@@ -9,9 +10,8 @@ shCompileMex
 %%
 
 nRepeats = 50;
-sz      = [40, 50, 60, 70, 80, 90, 100];
-% sz1      = [40, 40];
-% sz2      = [70, 70];
+%sz      = [40, 50, 60, 70, 80, 90, 100];
+%sz = [40, 50];
 
 durs      = [2, 4, 8, 16, 32, 64];
 %levels    = [0.01, 0.02, 0.05, 0.1, 0.2, 0.4, 0.8, 1];
@@ -74,8 +74,10 @@ end
 %%  get output
 
 saveLoc = fullfile(tb_rootPath, 'output');
+saveNm  = sprintf('dVal%d', sz);
 
-save(fullfile(saveLoc, 'dVal'), 'dVal')
+save(fullfile(saveLoc, saveNm), 'dVal')
+end
 
 %% analyze response
 
