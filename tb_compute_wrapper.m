@@ -4,7 +4,7 @@
 
 % for hpc
 addpath(genpath(fullfile(tb_rootPath)))
-%shCompileMex
+shCompileMex
 
 %%
 
