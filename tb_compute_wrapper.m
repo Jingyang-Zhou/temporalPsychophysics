@@ -19,7 +19,7 @@ levels    =  logspace(log10(.01), log10(1), 20);
 a = {}; b = {}; c = {}; d = {};
 
 for isz = 1 : length(sz)
-    parfor k = 1 : nRepeats
+    for k = 1 : nRepeats
         [ctr, coh] = tb_compute(durs, levels, [sz(isz), sz(isz)], accumWind, rdRule);
         
         a{k} = ctr.mtdecVal;
@@ -41,7 +41,7 @@ saveNm  = sprintf('dVal%d%s', sz, accumWind);
 
 save(fullfile(saveLoc, saveNm), 'dVal')
 
-clear ctr coh dVal
+clear ctr coh dVal a b c d
 
 end
 
