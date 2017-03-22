@@ -25,24 +25,18 @@ switch whichrule
     case 'weiRsp'
         idx = [];
         L = length(ind_ro.ang);
-        
         for k = 1 : L
-            if (ind_ro.ang(k) > pi/2) & (ind_ro.ang(k) <= 1.5*pi),
-                idx(k) = 1;
-            else
-                idx(k) = 0;
+            if (ind_ro.ang(k) > pi/2) & (ind_ro.ang(k) <= 1.5*pi), idx(k) = 1;
+            else idx(k) = 0;
             end
         end
         % amplitude could be used to compute confidence
         
     case 'maxRsp'
-        L = length(ind_ro.dir);
-        
+        L = length(ind_ro.dir); 
         for k = 1 : length(ind_ro.dir)
-            if (ind_ro.dir(k) > pi/2) & (ind_ro.dir(k) <= 1.5*pi),
-                idx(k) = 1;
-            else
-                idx(k) = 0;
+            if (ind_ro.dir(k) > pi/2) & (ind_ro.dir(k) <= 1.5*pi), idx(k) = 1;
+            else idx(k) = 0;
             end
         end
         

@@ -24,7 +24,9 @@ if ~exist('noiselevel', 'var'), noiselevel = 0; end
 
 v1thresh = 0.01;
 figureOn = 0;
-hpcOn    = 1;
+hpcOn    = 0;
+
+if figureOn, hpcOn = 0; end
 
 %% derived parameters
 
