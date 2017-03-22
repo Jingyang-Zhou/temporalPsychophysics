@@ -1,4 +1,4 @@
-function [ctr.mtdecVal, coh.] = tb_compute(durs, levels, sz, whichAccumWind, whichRdRule, noiselevel)
+function [ctr, coh, ctrstim, cohstim] = tb_compute(durs, levels, sz, whichAccumWind, whichRdRule, noiselevel)
 % 
 % INPUTS:
 %       durs  : a vector of stimulus durations
@@ -17,13 +17,14 @@ if ~exist('durs', 'var'),   durs   = [3, 6, 10, 70]; end
 if ~exist('levels', 'var'), levels = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5]; end
 if ~exist('sz', 'var'),     sz     = [50, 50]; end
 if ~exist('whichAccumWind', 'var'), whichAccumWind = 'exponential'; end
-if ~exist('whichRdRule', 'var'), whichRdRule = 'maxRsp'; end
+if ~exist('whichRdRule', 'var'), whichRdRule = 'Rsp'; end
 if ~exist('noiselevel', 'var'), noiselevel = 0; end
 
 %% default parameters
 
 v1thresh = 0.01;
-figureOn = 0;
+figureOn = 1;
+hpcOn    = 0;
 
 %% derived parameters
 
@@ -42,16 +43,17 @@ areas = {'v1', 'mt'};
     
 %% make stimulus
 
-[ctr.stim, coh.stim]= tb_mkStim(durs, levels, sz);
+[ctrstim, cohstim]= tb_mkStim(durs, levels, sz);
 
 % visualize stimulus:
 % flipBook(coh.stim{3, 4})
 
 %% compute V1 and MT responses
 
-[ctr.v1rsp, ctr.mtrsp] = tb_mkRsp(ctr.stim, pars, durs, levels, v1thresh);
-[coh.v1rsp, coh.mtrsp] = tb_mkRsp(coh.stim, pars, durs, levels, v1thresh);
+[ctr.v1rsp, ctr.mtrsp] = tb_mkRsp(ctrstim, pars, durs, levels, v1thresh);
+[coh.v1rsp, coh.mtrsp] = tb_mkRsp(cohstim, pars, durs, levels, v1thresh);
 
+if hpcOn, clear ctrstim cohstim;  end
 %% accumulation
 
 condRsp   = {'v1rsp', 'mtrsp'};
@@ -62,6 +64,7 @@ for k = 1 : length(condAccum)
    coh.(condAccum{k}) = tb_accumWind(whichAccumWind, coh.(condRsp{k}), durs, levels);
 end
 
+if hpcOn, ctr.v1rsp = []; coh.v1rsp = []; ctr.mtrsp = []; coh.mtrsp = []; end
 %% compute percept
 
 condPrct = {'v1prct', 'mtprct'};
@@ -71,6 +74,7 @@ for k = 1 : length(condPrct)
     coh.(condPrct{k}) =  tb_read_percept(coh.(condAccum{k}),  whichRdRule, pars, areas{k});
 end
 
+if hpcOn, ctr.v1acc = []; coh.v1acc = []; ctr.mtacc = []; coh.mtacc = []; end
 %% decision
 
 condDec = {'v1dec', 'mtdec'};
@@ -80,6 +84,7 @@ for k = 1 : length(condDec)
    coh.(condDec{k}) = tb_read_dec_wrapper(coh.(condPrct{k}), whichRdRule, pars);
 end
 
+if hpcOn, ctr.v1prct = []; coh.v1prct = []; ctr.mtprct = []; coh.mtprct = []; end
 %% organize decision values
 
 condDecVal = {'v1decVal', 'mtdecVal'};
@@ -89,6 +94,7 @@ for k = 1 : length(condDecVal)
    coh.(condDecVal{k}) = tb_takeDecVal(coh.(condDec{k}), durs, levels);
 end
 
+if hpcOn, ctr.v1dec = []; coh.v1dec = []; ctr.mtdec = []; coh.mtdec = []; end
 %% visualize accumulation
 
 toplot = ctr.mtacc;

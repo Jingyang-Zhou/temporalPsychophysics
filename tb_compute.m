@@ -17,7 +17,7 @@ if ~exist('durs', 'var'),   durs   = [3, 6, 10, 70]; end
 if ~exist('levels', 'var'), levels = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5]; end
 if ~exist('sz', 'var'),     sz     = [50, 50]; end
 if ~exist('whichAccumWind', 'var'), whichAccumWind = 'exponential'; end
-if ~exist('whichRdRule', 'var'), whichRdRule = 'maxRsp'; end
+if ~exist('whichRdRule', 'var'), whichRdRule = 'weiRsp'; end
 if ~exist('noiselevel', 'var'), noiselevel = 0; end
 
 %% default parameters
