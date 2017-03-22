@@ -1,12 +1,6 @@
 % tb_compute_wrapper
 function [] = tb_compute_wrapper(sz, accumWind, rdRule)
 
-%% small spatial stimulus
-
-% for hpc
-addpath(genpath(fullfile(tb_rootPath)))
-shCompileMex
-
 %%
 
 nRepeats = 50;

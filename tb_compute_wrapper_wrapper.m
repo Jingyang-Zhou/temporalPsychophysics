@@ -1,5 +1,8 @@
 % tb_compute_wrapper_wrapper
 
+addpath(genpath(fullfile(tb_rootPath)))
+shCompileMex
+
 %% infinite integration window
 
 accumWind = 'infinite';
