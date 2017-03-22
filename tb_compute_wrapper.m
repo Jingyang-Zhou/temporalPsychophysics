@@ -23,7 +23,7 @@ rdRule    = 'maxRsp';
 %% compute
 
 for isz = 1 : length(sz)
-    parfor k = 1 : nRepeats
+    for k = 1 : nRepeats
         [ctr, coh] = tb_compute(durs, levels, [sz(isz), sz(isz)], accumWind, rdRule);
         
         a{k} = ctr.mtdecVal;
@@ -33,7 +33,8 @@ for isz = 1 : length(sz)
         
     end
     dVal{isz}.mtctr = a;
-    dVal{isz}.mtcoh = b;
+    dVal{isz}.mtcoh = b; 
+    
     
 %    dVal{isz}.v1ctr = c;
 %    dVal{isz}.v1coh = d;

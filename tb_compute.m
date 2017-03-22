@@ -1,4 +1,4 @@
-function [ctr, coh] = tb_compute(durs, levels, sz, whichAccumWind, whichRdRule, noiselevel)
+function [ctr, coh, ctrstim, cohstim] = tb_compute(durs, levels, sz, whichAccumWind, whichRdRule, noiselevel)
 % 
 % INPUTS:
 %       durs  : a vector of stimulus durations
@@ -43,17 +43,17 @@ areas = {'v1', 'mt'};
     
 %% make stimulus
 
-[ctr.stim, coh.stim]= tb_mkStim(durs, levels, sz);
+[ctrstim, cohstim]= tb_mkStim(durs, levels, sz);
 
 % visualize stimulus:
 % flipBook(coh.stim{3, 4})
 
 %% compute V1 and MT responses
 
-[ctr.v1rsp, ctr.mtrsp] = tb_mkRsp(ctr.stim, pars, durs, levels, v1thresh);
-[coh.v1rsp, coh.mtrsp] = tb_mkRsp(coh.stim, pars, durs, levels, v1thresh);
+[ctr.v1rsp, ctr.mtrsp] = tb_mkRsp(ctrstim, pars, durs, levels, v1thresh);
+[coh.v1rsp, coh.mtrsp] = tb_mkRsp(cohstim, pars, durs, levels, v1thresh);
 
-if hpcOn, ctr.stim = []; coh.stim = [];  end
+if hpcOn, clear ctrstim cohstim;  end
 %% accumulation
 
 condRsp   = {'v1rsp', 'mtrsp'};
