@@ -8,15 +8,15 @@ nRepeats = 50;
 durs      = [2, 4, 8, 16, 32, 64];
 levels    =  logspace(log10(.01), log10(1), 20); 
 % levels    = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5];
-sz = 40;
-
-accumWind = 'exponential';
-rdRule    = 'weiRsp';
+% sz = 40;
+% 
+% accumWind = 'exponential';
+% rdRule    = 'weiRsp';
 
 
 %% compute
 
-a = []; b = []; c = []; d = [];
+a = {}; b = {}; c = {}; d = {};
 
 for isz = 1 : length(sz)
     parfor k = 1 : nRepeats
