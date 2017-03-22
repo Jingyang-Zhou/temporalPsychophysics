@@ -20,7 +20,7 @@ levels    =  logspace(log10(.01), log10(1), 20);
 %% compute
 
 for isz = 1 : length(sz)
-    for k = 1 : nRepeats
+    parfor k = 1 : nRepeats
         [ctr, coh] = tb_compute(durs, levels, [sz(isz), sz(isz)], accumWind, rdRule);
         
         a{k} = ctr.mtdecVal;

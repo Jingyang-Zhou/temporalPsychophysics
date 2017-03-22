@@ -8,7 +8,7 @@ rdRule    = 'maxRsp';
 sz  = 40 : 10 : 100;
 nsz = length(sz);
 
-for k = 1 : nsz
+parfor k = 1 : nsz
      tb_compute_wrapper(sz(k), accumWind, rdRule);
 end
 
@@ -20,6 +20,6 @@ rdRule    = 'maxRsp';
 sz  = 40 : 10 : 100;
 nsz = length(sz);
 
-for k = 1 : nsz
+parfor k = 1 : nsz
      tb_compute_wrapper(sz(k), accumWind, rdRule);
 end
