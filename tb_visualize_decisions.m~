@@ -34,16 +34,7 @@ for isz = 1 : nSz
     dec.coh{isz} = dec.coh{isz}./nRp;
 end
 
-%% fit Weibull to each sz x duration condition
-
-psychometric = {};
-
-for isz = 1 : nSz
-    for iDur = 1: nDurs
-        
-    end
-end
-
+%% fit Weibull to 
 
 %% visualize - plot correctness at each condition
 
