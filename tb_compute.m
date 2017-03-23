@@ -22,9 +22,9 @@ if ~exist('noiselevel', 'var'), noiselevel = 0; end
 
 %% default parameters
 
-v1thresh = 0.01;
+v1thresh = 0;
 figureOn = 0;
-hpcOn    = 0;
+hpcOn    = 1;
 
 if figureOn, hpcOn = 0; end
 
