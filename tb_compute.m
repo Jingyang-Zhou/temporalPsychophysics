@@ -22,7 +22,7 @@ if ~exist('noiselevel', 'var'), noiselevel = 0; end
 
 %% default parameters
 
-v1thresh = 0;
+v1thresh = 0.02;
 figureOn = 0;
 hpcOn    = 1;
 
